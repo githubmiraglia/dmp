@@ -40,8 +40,8 @@ services:
 
   apache:
     build:
-      context: ./apache
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apache/Dockerfile
     container_name: dmp_apache
     ports:
       - "8080:80"
