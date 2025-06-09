@@ -6,14 +6,12 @@ services:
     container_name: dmp_mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "admin"
-      MYSQL_DATABASE: "dmp"
-      MYSQL_USER: "ADMIN"
-      MYSQL_PASSWORD: "admin"
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: dmp
+      MYSQL_USER: ADMIN
+      MYSQL_PASSWORD: admin
     volumes:
       - mysql-data:/var/lib/mysql
-      # Remove the following line if init.sql is not yet defined
-      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
     networks:
@@ -33,7 +31,8 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     entrypoint: ["/usr/src/app/wait-for-it.sh", "dmp_mysql:3306", "--"]
     command: /bin/bash -c "python /usr/src/app/updatetables.py && /bin/bash"
     networks:
@@ -50,9 +49,9 @@ services:
     volumes:
       - ./web:/var/www/html/DMP
       - ./custom-apache.conf:/etc/apache2/sites-available/000-default.conf
-      - ./ssl/wrrm_lat.crt:/etc/ssl/certs/wrrm_lat.crt
-      - ./ssl/wrrm_lat.ca-bundle:/etc/ssl/certs/wrrm_lat.ca-bundle
-      - ./ssl/wrrm.lat.key:/etc/ssl/private/wrrm.lat.key
+      - ./ssl/wrrm_lat.crt:/etc/ssl/certs/wrrm_lat.crt:ro
+      - ./ssl/wrrm_lat.ca-bundle:/etc/ssl/certs/wrrm_lat.ca-bundle:ro
+      - ./ssl/wrrm.lat.key:/etc/ssl/private/wrrm.lat.key:ro
     command: >
       /bin/bash -c "
         a2enmod ssl rewrite &&
@@ -71,4 +70,3 @@ networks:
 volumes:
   mysql-data:
     driver: local
-
