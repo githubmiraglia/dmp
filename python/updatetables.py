@@ -3,7 +3,7 @@ import mysql.connector
 from mysql.connector import errorcode
 
 # Load the Excel file
-file_path = 'DMP_v2.xlsx'
+file_path = './data/DMP_v2.xlsx'
 users_df = pd.read_excel(file_path, sheet_name='users')
 topscores_df = pd.read_excel(file_path, sheet_name='topscores')
 print(users_df)
