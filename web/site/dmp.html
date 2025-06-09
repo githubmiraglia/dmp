@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>DANS MON PALAIS</title>
+	<meta name="viewport" content="initial-scale=1, minimum-scale = 1, maximum-scale=1, user-scalable=no">
+	<link rel="icon" href="img/favicon.png" type="image/png">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/forms.css">
+	<style type="text/css">
+		@font-face {
+    		font-family: "ArcadeClassic";
+    		src: url(fonts/ARCADECLASSIC.TTF) format("truetype");
+		}
+	</style>
+</head>
+
+<body>
+	<!--
+	<header class="flexnowrap">
+		<div style="flex:1;position:relative"><img class="resize" data-minw="35" data-maxw="70" id="header1" src="img/header_devices.png" alt="DEVICES"></div>
+		<div style="flex:4;text-align:center"><img class="resize" data-minw="35" data-maxw="70" id="header2" src="img/header_logo.png" alt="DMPLOGO"></div>
+		<div class="flexcolumn" style="flex:1">
+			<div style="flex:1.5;position:relative;overflow:hidden">
+				<p class="resize" id="user" data-minw="10" data-maxw="18"></p>
+			</div>
+			<div style="flex:1;position:relative"><img class="resize imover clickable" data-minw="20" data-maxw="35" id="header3" src="img/account.svg" alt="ACCOUNT" data-moverin="img/account2.svg" data-moverout="img/account.svg" data-func="0"></div>
+		</div>
+	</header> !-->
+
+	<header class="flexnowrap">
+		<div style="flex:1;position:relative">
+		  <img class="resize" data-minw="35" data-maxw="70" id="header1" src="img/header_devices.png" alt="DEVICES">
+		</div>
+		<!-- Modified middle section with visitor counter and logo -->
+		<div style="flex:4; display: flex; align-items: center; justify-content: center;">
+		  <!-- Visitor counter wrapper -->
+		  <div class="resize" data-minw="35" data-maxw="70" id="visitorCountContainer" style="
+		  		position: absolute;
+				font-size: 11px;
+				left: 0px;
+				width: 80px;
+				height: 40px;
+				background-color: #e0e0e0;
+				border: 2px solid #ccc;
+				border-radius: 5px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-left: 10px;">
+			<span id="visitorCount">0</span>
+		  </div>
+		  <script>
+			function formatNumberWithDots(number) {
+			  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+			}
+			
+			fetch('/DMP/site/php/visitorcount.php')
+			  .then(response => response.json())
+			  .then(data => {
+				var count = data.visitorCount;
+				document.getElementById('visitorCount').textContent = formatNumberWithDots(count);
+			  })
+			  .catch(error => console.error('Error fetching visitor count:', error));
+		  </script>
+		  <img class="resize" data-minw="35" data-maxw="70" id="header2" src="img/header_logo.png" alt="DMPLOGO">
+		</div>
+		<div class="flexcolumn" style="flex:1">
+		  <div style="flex:1.5;position:relative;overflow:hidden">
+			<p class="resize" id="user" data-minw="10" data-maxw="18"></p>
+		  </div>
+		  <div style="flex:1;position:relative">
+			<img class="resize imover clickable" data-minw="20" data-maxw="35" id="header3" src="img/account.svg" alt="ACCOUNT" data-moverin="img/account2.svg" data-moverout="img/account.svg" data-func="0">
+		  </div>
+		</div>
+	  </header>
+
+	<div id="cookiewrapper">
+		<p id="cookiedisclaimer" class="resize" data-minw="11" data-maxw="18">Dans Mon Palais uses cookies to improve your experience. By using Dans Mon Palais you agree with our <a id="hrefCookie" href="legal/cookies.html" target="_blank">use of cookies</a></p>
+		<p id="cookieOk" class="resize" data-minw="11" data-maxw="18">OK</p>
+	</div>
+
+	<menu id="menu">
+		<a href="#" class="menu resize clickable" id="arcade" data-minw="12" data-maxw="20" data-func="1">&nbspDMP ARCADE&nbsp&nbsp&nbsp</a>
+		<a href="#" class="menu resize clickable" id="mame" data-minw="12" data-maxw="20" data-func="2">&nbspMAME ARCADE&nbsp&nbsp&nbsp</a>
+	</menu>
+
+	<p id="waitForRoms">...LOADING ROMS...</p>
+	
+	<div class="carouselWrapper">
+		<div id="clearCarousel"><img class="exit exitjs imover" src="img/clear.svg" alt="CLEAR" data-moverin="img/clear2.svg" data-moverout="img/clear.svg" data-exit="arcade"></div>
+		<div id="carouselArcade" class="carousel">
+		</div>
+	</div>
+
+	<div class="flexwrap main">
+		<div style="flex:2"><img src="img/mainleft_1.jpg" id="mainleft" alt="MAINLEFT"></div>
+		<div style="flex:1"><img src="img/skate_1.png" id="mainright" alt="MAINRIGHT"></div>
+	</div>
+
+	<fixed class="wrapperForms resize" id="wrapform" data-maxw="100" data-minw="40" data-maxtop="11" data-mintop="0">
+		<p id="myAccount">My Account <img class="exit exitjs imover" src="img/clear.svg" alt="CLEAR" data-moverin="img/clear2.svg" data-moverout="img/clear.svg" data-exit="header3"></p>
+		<p id="caps">CAPS LOCK ON</p>
+		
+		<form class="forms" id="form1" autocomplete="off">
+			<p class="formtop">Sign in</p>
+			<p class="formtoptxt">If you have an account with DANS MON PALAIS, use your username or email and password to sign in to your profile.</p>
+			<p class="forminputtxt">Username or email</p>
+			<input class="forminput _focusout" type="text" data-query="nameormail" data-validate="user" data-nexist="false" data-form="form1"><br>
+			<p class="forminputtxt">Password</p>
+			<input  class="forminput _input" type="password" data-query="password" data-validate="password" data-form="form1"><br>
+			<p class="formcheck"><input  class="formcheck" type="checkbox" id="check1"><label class="formcheck" >Keep me signed in</label></p><br>
+			<button class="formbutton clickable" type="button" data-func="0" data-button="signin" data-form="form1">SIGN IN</button><br>
+			<p class="formlink"><a class="formlink" href="#">Forgot password ?</a></p>
+			<p class="Or">OR</p>
+			<p class="formtop">Create an Account</p>
+			<p class="formtoptxt">Keep your scores in arcade, get latest news. DANS MON PALAIS pledges to not send emails unless for important updates.</p>
+			<button class="formbutton clickable" type="button" data-func="0" data-button="next" data-nextform="form2" data-state="creatingAccount" data-form="form1">REGISTER</button>	
+		</form>
+			
+		<form class="forms" id="form2" autocomplete="off">
+			<p class="formtop" id="form2Title" data-alt="Update account">Create an account</p>
+			<p class="formtoptxt">Keep your scores in arcade, get latest news. DANS MON PALAIS pledges to not not send emails unless for important updates.</p> 
+			<p class="forminputtxt">Username</p>
+			<input class="forminput _focusout" id="newUser" type="text" data-query="notempty" data-validate="user" data-nexist="userName" data-form="form2" name="user"><br>
+			<p id="fantasyname">fantasy name, e.g. SherlockHolmes</p>
+			<p class="forminputtxt">Email</p>
+			<input class="forminput _focusout" id="newEmail" type="email" data-query="mail" data-validate="mail" data-nexist="email" data-form="form2" name="mail"><br>
+			<p class="forminputtxt">Password</p>
+			<input class="forminput _focusout" type="password" data-query="password1" data-nexist="password" data-form="form2"><br>
+			<p class="forminputtxt">Retype password</p>
+			<input class="forminput _input" type="password" data-query="password2" data-validate="password" data-form="form2" name="password"><br>
+			<p class="formcheck"><input  class="formcheck" type="checkbox" id="check2"><label class="formcheck">Keep me signed in</label></p><br>
+			<button class="formbutton clickable" id="newOrUpdate" type="button" data-func="0" data-button="newaccount" data-form="form2">SUBMIT</button>
+		</form>
+
+		<form class="forms" id="form3" autocomplete="off">
+			<p class="formtop">Sign out</p>
+			<button class="formbutton clickable" type="button" data-func="0" data-button="signout" data-form="form3">SIGN OUT</button>
+			<p class="Or">OR</p>
+			<p class="formtop">Update account</p>
+			<p id="formtoptxt">Change your user name, email or password.</p>
+			<button class="formbutton clickable" type="button" data-func="0" data-button="next" data-nextform="form2" data-state="updatingAccount" data-form="form3">UPDATE</button>
+		</form>
+		
+	</fixed>	
+	
+	<footer>
+		<div id="leftfooter">
+		</div>
+		<div id="legalWrapper">
+			<a class="legal resize" data-minw="11" data-maxw="18" href="legal/arcade.html" target="_blank">About Arcade</a>
+			<a class="legal resize" data-minw="11" data-maxw="18" href="legal/terms.html" target="_blank">Terms and Conditions</a>
+			<a class="legal resize" data-minw="11" data-maxw="18" href="legal/privacy.html" target="_blank">Privacy Policy</a>
+			<a class="legal resize" data-minw="11" data-maxw="18" href="legal/cookies.html" target="_blank">Cookie Policy</a>
+			<p style="padding-left:10px;margin-top:7px;color:white" class="resize" data-minw="9" data-maxw="16">This site is protected by reCAPTCHA and the Google
+			<a class="legal" href="https://policies.google.com/privacy">Privacy Policy</a> &nbsp and
+			<a class="legal" href="https://policies.google.com/terms">Terms of Service</a> &nbsp apply.</p>
+		</div>
+	</footer>
+	
+	<div class="g-recaptcha" id="captcha" data-sitekey="6LecceEUAAAAALiPz-nKuQuwkWPsUpFsKjVZqL4J" data-callback="captchaButtons" data-size="invisible" style="display:none">
+	</div>
+	
+	<!-- LEFT ON THE LAST PLACE ON PURPOSE - IF MAME WILL DELETE EVERYTHING ELSE BUT STAY ON THE PAGE !-->
+	<div id="mameWrapper">
+		<div id="logo-container" class="logo-container">
+			<img src="/DMP/site/img/header_logo.png" alt="Header Logo">
+		</div>
+		<div id="mame-container"></div>
+	</div>
+	<div id="exit-container"></div>
+	<div id="gamepad-container"></div>
+	
+	<div id="script-container">
+		<script src="/DMP/MAME/mamejs/integrationMAMEjs.js"></script>
+		<script src="js/server.js"></script>
+		<script src="js/session.js"></script>
+		<script src="js/domhelpers.js"></script>
+		<script src="js/carousel.js"></script>
+		<script src="js/sitecontrol.js"></script>
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/flatted@3.2.7/min.js"></script>
+	</div>
+
+</body>
+</html>
