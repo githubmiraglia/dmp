@@ -49,13 +49,12 @@ services:
     volumes:
       - ./web:/var/www/html/DMP
       - ./custom-apache.conf:/etc/apache2/sites-available/000-default.conf
-      - ./ssl/wrrm_lat.crt:/etc/ssl/certs/wrrm_lat.crt:ro
-      - ./ssl/wrrm_lat.ca-bundle:/etc/ssl/certs/wrrm_lat.ca-bundle:ro
-      - ./ssl/wrrm.lat.key:/etc/ssl/private/wrrm.lat.key:ro
+      - ./etc/ssl/certs:/etc/ssl/certs:ro
+      - ./etc/ssl/private:/etc/ssl/private:ro
     command: >
       /bin/bash -c "
         a2enmod ssl rewrite &&
-        a2ensite default-ssl &&
+        a2ensite 000-default &&
         apachectl -D FOREGROUND
       "
     depends_on:
@@ -70,3 +69,4 @@ networks:
 volumes:
   mysql-data:
     driver: local
+
